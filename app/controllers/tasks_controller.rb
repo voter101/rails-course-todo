@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = {
+        completed: Task.where(completed: true),
+        not_completed: Task.where(completed: false)
+    }
+    @task = Task.new
   end
 
   # GET /tasks/1
@@ -21,6 +25,13 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def complete
+    task = Task.find(params[:id])
+    task.completed = true
+    task.save!
+    redirect_to '/'
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create
@@ -28,7 +39,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to '/', notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
