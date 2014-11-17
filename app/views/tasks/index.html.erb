@@ -8,10 +8,10 @@
         <span><%= link_to 'Destroy', task, method: :delete %></span>
       </li>
     <% end %>
-      <li class="no-style">
-        <%= render 'form_new' %>
-      </li>
   </ul>
+  <div class="no-style">
+    <%= render 'form_new' %>
+  </div>
 <h2>Completed</h2>
   <ul>
     <% @tasks[:completed].each do |task| %>
